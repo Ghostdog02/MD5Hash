@@ -55,8 +55,7 @@ namespace FindMD5HashWithLeadingZeroes
                 //    }
                 //}
 
-                stringBuilder.Append("0");
-                stringBuilder.Append(" ");
+                //stringBuilder.Append("0");
 
                 if (binaryCount.Length > 64)
                 {
@@ -81,7 +80,7 @@ namespace FindMD5HashWithLeadingZeroes
                 }
             }
 
-            return stringBuilder.ToString().Replace("/r/n", "");
+            return stringBuilder.ToString().Replace("\r\n", "");
         }
 
         public void AddBytesWithZeroes(int remainingZeroes, StringBuilder stringBuilder, bool isPaddedWithZeroes)
@@ -95,11 +94,17 @@ namespace FindMD5HashWithLeadingZeroes
                 if (i % 8 == 0)
                 {
                     stringBuilder.Append(" ");
-
-                    //if (i == 8)
-                    //    stringBuilder.Append("0");
                 }
             }
+
+            //Only do this the first time when adding one in the beginning
+            if (isPaddedWithZeroes == false)
+            {
+                //Adding zero because of the one we put in the begging and we omit 1 zero
+                stringBuilder.Append("0");
+                stringBuilder.Append(" ");
+            }
+            
         }
 
         public StringBuilder IntegerToBase(int number, int toBase)
