@@ -15,7 +15,7 @@ namespace MD5HashWithLeadingZeroes.Tests
             var byteString = md5Hash.ToBinary(md5Hash.ConvertToByteArray(input, Encoding.ASCII));
 
             //Act
-            var actual = md5Hash.AddPadding(byteString);
+            var actual = md5Hash.AddPadding(byteString, input);
 
             //Assert
             Assert.Equal(expectedValue, actual);

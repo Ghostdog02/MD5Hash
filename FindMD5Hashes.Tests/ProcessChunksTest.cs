@@ -10,14 +10,14 @@ namespace MD5HashWithLeadingZeroes.Tests
     public class ProcessChunksTest
     {
         [Theory]
-        [InlineData("They are deterministic", "23db6982caef9e9152f1a5b2589e6ca3")]
+        [InlineData("The quick brown fox jumps over the lazy dog", "9e107d9d372bb6826bd81d3542a419d6")]
 
         public void ToBinary_String_ReturnTrue(string input, string expectedValue)
         {
             //Arrange
             var md5Hash = new FindMD5Hash();
             var binaryString = md5Hash.ToBinary(md5Hash.ConvertToByteArray(input, Encoding.ASCII));
-            var paddedInput = md5Hash.AddPadding(binaryString);
+            var paddedInput = md5Hash.AddPadding(binaryString, input);
             
             //Act
             var actual = md5Hash.ProcessChunks(paddedInput).ToString();
