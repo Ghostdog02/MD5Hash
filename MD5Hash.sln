@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MD5HashWithLeadingZeroes.Tests", "FindMD5Hashes.Tests\MD5HashWithLeadingZeroes.Tests.csproj", "{70A7965A-C904-41F7-86F3-B969BF94A851}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindMD5HashWithLeadingZeroes", "FindMD5HashWithLeadingZeroes\FindMD5HashWithLeadingZeroes.csproj", "{5E35073F-1511-4679-8E58-CC26CB847522}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70A7965A-C904-41F7-86F3-B969BF94A851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A7965A-C904-41F7-86F3-B969BF94A851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A7965A-C904-41F7-86F3-B969BF94A851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A7965A-C904-41F7-86F3-B969BF94A851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E35073F-1511-4679-8E58-CC26CB847522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E35073F-1511-4679-8E58-CC26CB847522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E35073F-1511-4679-8E58-CC26CB847522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E35073F-1511-4679-8E58-CC26CB847522}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A5BDC9E-7BAD-4524-9A34-F82F4825D582}
+	EndGlobalSection
+EndGlobal
