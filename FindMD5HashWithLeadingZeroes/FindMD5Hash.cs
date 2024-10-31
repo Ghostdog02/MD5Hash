@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Metrics;
 using System.Numerics;
+using System.Reflection;
 using System.Text;
 
 namespace FindMD5HashWithLeadingZeroes
@@ -19,14 +20,15 @@ namespace FindMD5HashWithLeadingZeroes
             var md5Hash = new FindMD5Hash();
             var binaryString = md5Hash.ToBinary(md5Hash.ConvertToByteArray(INPUT, Encoding.ASCII));
             var paddedInput = md5Hash.AddPadding(binaryString);
+            var hash = md5Hash.ProcessChunks(paddedInput);
             //Console.WriteLine(paddedInput);
         }
 
         public string AddPadding(string binaryString)
         {
-            int inputCount = INPUT.Length;            
+            int inputCount = INPUT.Length;
             int count = binaryString.Length;
-            var binaryCount = IntegerToBase(count, 2);
+            var binaryCount = DecimalToBase(count, 2);
 
             var stringBuilder = new StringBuilder(binaryString);
 
@@ -38,7 +40,7 @@ namespace FindMD5HashWithLeadingZeroes
 
 
                 //AddBytesWithZeroes(remainingZeroes, stringBuilder, false);
-                
+
                 stringBuilder.Append("1");
                 while (true)
                 {
@@ -59,17 +61,18 @@ namespace FindMD5HashWithLeadingZeroes
                         binaryCount.Remove(0, 1);
                     }
 
-                    stringBuilder.AppendLine(binaryCount.ToString());
+                    stringBuilder.Append(binaryCount.ToString());
                 }
 
                 else
                 {
                     AddBytesWithZeroes(64 - binaryCount.Length, stringBuilder, true);
-                    stringBuilder.AppendLine(binaryCount.ToString());
+                    stringBuilder.Append(binaryCount.ToString());
                 }
+                //var chunks = stringBuilder.GetChunks();
             }
 
-            return stringBuilder.ToString().Replace("\r\n", "");
+            return stringBuilder.ToString();
         }
 
         public void AddBytesWithZeroes(int remainingZeroes, StringBuilder stringBuilder, bool isPaddedWithZeroes)
@@ -96,7 +99,230 @@ namespace FindMD5HashWithLeadingZeroes
 
         }
 
-        public StringBuilder IntegerToBase(int number, int toBase)
+        public string ProcessChunks(string paddedInput)
+        {
+            //Constants
+            var k = new long[65];
+            InitializeK(k);
+
+            // s specifies the per-round shift amounts
+            var s = new int[65];
+            InitializeS(s);
+
+            var index = 0;
+            long a0 = 0x67452301;
+            long b0 = 0xefcdab89;
+            long c0 = 0x98badcfe;
+            long d0 = 0x10325476;
+
+            var chunksOf512Bits = BreakIntoChunks(paddedInput, 512);
+            for (int i = 0; i < chunksOf512Bits.Count; i++)
+            {
+                long a1 = a0;
+                long b1 = b0;
+                long c1 = c0;
+                long d1 = d0;
+                long f = 0;
+
+                var chunksOf32Bits = BreakIntoChunks(chunksOf512Bits[i], 32);
+                for (int j = 0; j < chunksOf32Bits.Count; j++)
+                {
+                    int order = 0;
+
+                    if (index >= 0 && index <= 15)
+                    {
+                        f = (b1 & c1) | ((~b1) & d1);
+                        order = i % 16;
+                    }
+
+
+                    if (index >= 16 && index <= 31)
+                    {
+                        f = (d1 & b1) | ((~d1) & c1);
+                        order = (5 * i + 1) % 16;
+                    }
+
+
+                    if (index >= 32 && index <= 47)
+                    {
+                        f = b1 ^ c1 ^ d1;
+                        order = (3 * i + 5) % 16;
+                    }
+
+
+                    if (index >= 48 && index <= 63)
+                    {
+                        f = c1 ^ (b1 | (~d1));
+                        order = (7 * i) % 16;
+                    }
+
+                    var combination = f + a0 + BinaryToDecimal(chunksOf32Bits[order]) + k[index];
+                    var rotation = combination << s[index];
+                    a1 = d0;
+                    b1 = rotation + b0;
+                    c1 = b0;
+                    d1 = c0;
+
+                    index++;
+                }
+            }
+
+            var result = new StringBuilder(DecimalToHexadecimal(a0));
+            result.Append(DecimalToHexadecimal(b0));
+            result.Append(DecimalToHexadecimal(c0));
+            result.Append(DecimalToHexadecimal(d0));
+            //var result = DecimalToHexadecimal(a0) + DecimalToHexadecimal(b0) +
+            //    DecimalToHexadecimal(c0) + DecimalToHexadecimal(d0);
+            //var result = new StringBuilder();
+            //result.AppendLine(a0.ToString());
+            //result.AppendLine(b0.ToString());
+            //result.AppendLine(c0.ToString());
+            //result.AppendLine(d0.ToString());
+
+
+            return result.ToString();
+        }
+
+        public void InitializeK(long[] k)
+        {
+            for (int i = 0; i < 64; i++)
+            {
+                k[i] = (long)(Math.Pow(2, 32) * Math.Abs(Math.Sin(i + 1)));
+            }
+        }
+
+        // s specifies the per-round shift amounts
+        public void InitializeS(int[] s)
+        {
+            //There are 4 numbers that repeat for each round
+            var indexOfNumber = 1;
+
+            for (int i = 0; i < 64; i++)
+            {
+                if (indexOfNumber == 5)
+                {
+                    indexOfNumber = 0;
+                }
+
+                if (i >= 0 && i <= 15)
+                {
+                    //These 4 numbers repeat for the whole round
+                    switch (indexOfNumber)
+                    {
+                        case 1:
+                            s[i] = 7;
+                            break;
+                        case 2:
+                            s[i] = 12;
+                            break;
+                        case 3:
+                            s[i] = 17;
+                            break;
+                        case 4:
+                            s[i] = 22;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+
+                if (i >= 16 && i <= 31)
+                {
+                    //These 4 numbers repeat for the whole round
+                    switch (indexOfNumber)
+                    {
+                        case 1:
+                            s[i] = 5;
+                            break;
+                        case 2:
+                            s[i] = 9;
+                            break;
+                        case 3:
+                            s[i] = 14;
+                            break;
+                        case 4:
+                            s[i] = 20;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+
+                if (i >= 32 && i <= 47)
+                {
+                    //These 4 numbers repeat for the whole round
+                    switch (indexOfNumber)
+                    {
+                        case 1:
+                            s[i] = 4;
+                            break;
+                        case 2:
+                            s[i] = 11;
+                            break;
+                        case 3:
+                            s[i] = 16;
+                            break;
+                        case 4:
+                            s[i] = 23;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+
+                if (i >= 48 && i <= 63)
+                {
+                    //These 4 numbers repeat for the whole round
+                    switch (indexOfNumber)
+                    {
+                        case 1:
+                            s[i] = 6;
+                            break;
+                        case 2:
+                            s[i] = 10;
+                            break;
+                        case 3:
+                            s[i] = 15;
+                            break;
+                        case 4:
+                            s[i] = 21;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                indexOfNumber++;
+            }
+        }
+
+        public List<string> BreakIntoChunks(string paddedInput, int numberOfChunks)
+        {
+            var chunks = new List<string>();
+
+            if (numberOfChunks == 512)
+            {
+                for (int i = 0; i < (paddedInput.Length % 512); i++)
+                {
+                    chunks.Add(paddedInput.Substring(i * 512, 512));
+                }
+            }
+
+            else
+            {
+                for (int j = 0; j < 16; j++)
+                {
+                    chunks.Add(paddedInput.Substring(j * 32, 32));
+                }
+            }
+
+            return chunks;
+        }
+
+        public StringBuilder DecimalToBase(int number, int toBase)
         {
             var binary = new List<int>();
 
@@ -112,10 +338,72 @@ namespace FindMD5HashWithLeadingZeroes
             return stringBuilder;
         }
 
+        public long BinaryToDecimal(string binary)
+        {
+            long converted = 0;
+            var reversed = binary.Reverse();
+
+            for (int i = 0; i < reversed.Count(); i++)
+            {
+                converted += 2 ^ i;
+            }
+
+            return converted;
+        }
+
+        public string DecimalToHexadecimal(long numberInDecimal)
+        {
+            var digits = new List<long>();
+
+            while (numberInDecimal > 0)
+            {
+                var digit = numberInDecimal % 16;
+                digits.Add(digit);
+                numberInDecimal /= 16;
+            }
+
+            digits.Reverse();
+            var hexadecimal = new StringBuilder();
+
+            foreach (var digit in digits)
+            {
+                if (digit < 10)
+                    hexadecimal.Append(digit);
+                else
+                {
+                    switch (digit)
+                    {
+                        case 10:
+                            hexadecimal.Append("a");
+                            break;
+                        case 11:
+                            hexadecimal.Append("b");
+                            break;
+                        case 12:
+                            hexadecimal.Append("c");
+                            break;
+                        case 13:
+                            hexadecimal.Append("d");
+                            break;
+                        case 14:
+                            hexadecimal.Append("e");
+                            break;
+                        case 15:
+                            hexadecimal.Append("f");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+            }
+
+            return hexadecimal.ToString();
+        }
+
         public StringBuilder ConvertToStringBuilder(List<int> binary)
         {
             var stringBuilder = new StringBuilder();
-            int index = 1;
 
             foreach (var bit in binary)
             {
@@ -124,6 +412,8 @@ namespace FindMD5HashWithLeadingZeroes
 
             return stringBuilder;
         }
+
+
 
         public byte[] ConvertToByteArray(string str, Encoding encoding)
         {
@@ -134,182 +424,6 @@ namespace FindMD5HashWithLeadingZeroes
         {
             return string.Join("", data.Select(byt => Convert.ToString(byt, 2).PadLeft(8, '0')));
         }
-
-        //public void ConvertToMD5Hash(string input)
-        //{
-        //    byte[] bytes = new byte[byte.MaxValue];
-        //    bytes = Encoding.ASCII.GetBytes(input);
-        //    var bits = GetBits(bytes);
-        //    //List<StringBuilder> blocksOfBits = [bits];
-        //    //StringBuilder bits = new StringBuilder();
-        //    //bits.Append(bytes);
-        //    AddPadding(bits);
-        //    //ProcessMessage(bits);
-
-        //}
-
-        //static void AddPadding(StringBuilder bits)
-        //{
-        //    var inputLenght = bits.Length;
-        //    bits.Append("1");
-        //    int zeroesCount = 448 - bits.Length;
-        //    PaddZeroes(bits, zeroesCount);
-
-        //    //Convert inputLenght in bits
-        //    var lenghtInBits = Convert.ToString(inputLenght, 2);
-        //    var bitsCount = lenghtInBits.Length;
-        //    var zeroes = 64 - bitsCount;
-        //    PaddZeroes(bits, zeroes);
-        //    bits.Append(lenghtInBits);
-        //}
-
-        private static void PaddZeroes(StringBuilder bits, int zeroesCount)
-        {
-            for (int i = 0; i < zeroesCount; i++)
-            {
-                bits.Append("0");
-            }
-        }
-
-        //static void ProcessMessage(StringBuilder bits)
-        //{
-        //    // s specifies the per-round shift amounts
-        //    int[] shifter = new int[64];
-        //    int indexOfShiftAmounts = 0;
-        //    List<int> shiftAmounts = new List<int>();
-        //    InitializeShifter(shifter, shiftAmounts, indexOfShiftAmounts);
-        //    uint[] k = new uint[64];
-        //    InitializeK(k);
-        //    BigInteger a0 = 0x67452301;   // A
-        //    BigInteger b0 = 0xefcdab89;   // B
-        //    BigInteger d0 = 0x10325476;   // D
-        //    BigInteger c0 = 0x98badcfe;   // C
-        //    int currentbit = 0;
-
-        //    /*nt[] m = new int[16];*/
-        //    // Initialize hash value for this chunk:
-        //    BigInteger a = a0;
-        //    BigInteger b = b0;
-        //    BigInteger d = d0;
-        //    BigInteger c = c0;
-        //    var segments = SplitBitsIntoSixteenSegmentsWith36Bits(bits);
-        //    for (int i = 0; i < 64; i++)
-        //    {
-        //        BigInteger f;
-        //        int g;
-
-        //        if (i >= 0 && i <= 15)
-        //        {
-        //            f = (b & c) | ((~b) & d);
-        //            g = i;
-        //        }
-
-        //        else if (i >= 16 && i <= 31)
-        //        {
-        //            f = (d & b) | ((~d) & c);
-        //            g = (5 * i + 1) % 16;
-        //        }
-
-        //        else if (i >= 32 && i <= 47)
-        //        {
-        //            f = b ^ c ^ d;
-        //            g = (3 * i + 5) % 16;
-        //        }
-
-        //        else
-        //        {
-        //            f = c ^ (b ^ (~d));
-        //            g = (7 * i + 1) % 16;
-        //        }
-
-        //        var number = Convert.ToInt64(segments[g], 2);
-        //        f = f + a + k[i] + number;
-        //        a = d;
-        //        d = c;
-        //        c = b;
-        //        b = b + (f << shifter[i]);
-        //    }
-
-        //    a0 += a;
-        //    b0 += b;
-        //    d0 += d;
-        //    c0 += c;
-
-        //    string digest = $"{a}{b}{c}{d}";
-        //    var bigInt = BigInteger.Parse(digest);
-        //    var hexString = bigInt.ToString("x");
-        //}
-
-        //private static void InitializeShifter(int[] shifter, List<int> shiftAmounts, int indexOfShiftAmounts)
-        //{
-        //    for (int i = 0; i < 64; i++)
-        //    {
-        //        if (i >= 0 && i <= 15)
-        //        {
-        //            if (i == 0)
-        //            {
-        //                shiftAmounts.Add(7);
-        //                shiftAmounts.Add(12);
-        //                shiftAmounts.Add(17);
-        //                shiftAmounts.Add(22);
-        //            }
-
-        //        }
-
-        //        else if (i >= 16 && i <= 31)
-        //        {
-        //            if (i == 16)
-        //            {
-        //                shiftAmounts.Clear();
-        //                shiftAmounts.Add(5);
-        //                shiftAmounts.Add(9);
-        //                shiftAmounts.Add(14);
-        //                shiftAmounts.Add(20);
-        //            }
-
-        //        }
-
-        //        else if (i >= 32 && i <= 47)
-        //        {
-        //            if (i == 32)
-        //            {
-        //                shiftAmounts.Clear();
-        //                shiftAmounts.Add(4);
-        //                shiftAmounts.Add(11);
-        //                shiftAmounts.Add(16);
-        //                shiftAmounts.Add(23);
-        //            }
-
-        //        }
-
-        //        else
-        //        {
-        //            if (i == 48)
-        //            {
-        //                shiftAmounts.Clear();
-        //                shiftAmounts.Add(6);
-        //                shiftAmounts.Add(10);
-        //                shiftAmounts.Add(15);
-        //                shiftAmounts.Add(21);
-        //            }
-
-        //        }
-
-        //        shifter[i] = shiftAmounts[indexOfShiftAmounts];
-        //        indexOfShiftAmounts++;
-        //        indexOfShiftAmounts = (indexOfShiftAmounts == 4) ? 0 : indexOfShiftAmounts;
-        //    }
-        //}
-
-        //private static void InitializeK(uint[] k)
-        //{
-        //    // Use binary integer part of the sines of integers (Radians) as constants:
-        //    for (int i = 0; i < 64; i++)
-        //    {
-        //        k[i] = (uint)Math.Floor(Math.Pow(2, 32) * Math.Abs(Math.Sin(i + 1)));
-        //    }
-
-        //}
 
         private static List<string> SplitBitsIntoSixteenSegmentsWith36Bits(StringBuilder bits)
         {
@@ -345,3 +459,4 @@ namespace FindMD5HashWithLeadingZeroes
         }
     }
 }
+
