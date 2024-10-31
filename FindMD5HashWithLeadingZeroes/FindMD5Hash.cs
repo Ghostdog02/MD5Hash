@@ -24,43 +24,36 @@ namespace FindMD5HashWithLeadingZeroes
 
         public string AddPadding(string binaryString)
         {
-            int inputCount = INPUT.Length;
-
-            //Count length of bits without spaces
-            int count = binaryString.Replace(" ", "").Length;
+            int inputCount = INPUT.Length;            
+            int count = binaryString.Length;
             var binaryCount = IntegerToBase(count, 2);
 
             var stringBuilder = new StringBuilder(binaryString);
 
             if (inputCount < 448)
             {
-                int remainingZeroes = 448 - 1 - count;
-                //int spacesCount = remainingZeroes / 8;
-                stringBuilder.Append(" ");
+                //int remainingZeroes = 448 - 1 - count;
+                ////stringBuilder.Append(" ");
+                //stringBuilder.Append("1");
+
+
+                //AddBytesWithZeroes(remainingZeroes, stringBuilder, false);
+                
                 stringBuilder.Append("1");
+                while (true)
+                {
+                    bool isDivisible = (stringBuilder.Length + 64) % 512 == 0;
 
-                AddBytesWithZeroes(remainingZeroes, stringBuilder, false);
-                //for (int i = 1; i <= remainingZeroes; i++)
-                //{
-                //    //The first byte when padding will contain leading 1 so it will have one less zero 
-                //    if (i != 8)
-                //        stringBuilder.Append("0");
+                    if (isDivisible == true)
+                    {
+                        break;
+                    }
 
-                //    if (i % 8 == 0)
-                //    {
-                //        stringBuilder.Append(" ");
-
-                //        //if (i == 8)
-                //        //    stringBuilder.Append("0");
-                //    }
-                //}
-
-                //stringBuilder.Append("0");
+                    stringBuilder.Append("0");
+                }
 
                 if (binaryCount.Length > 64)
                 {
-                    //string binaryStringOfCount = ToBinary(ConvertToByteArray(inputCount.ToString(), Encoding.ASCII));
-                    //var inputCountBuilder = binaryCount;
                     while (binaryCount.Length > 64)
                     {
                         binaryCount.Remove(0, 1);
@@ -71,10 +64,6 @@ namespace FindMD5HashWithLeadingZeroes
 
                 else
                 {
-                    //for (int i = 0; i < 64 - binaryCount.Length; i++)
-                    //{
-                    //    stringBuilder.Append("0");
-                    //}
                     AddBytesWithZeroes(64 - binaryCount.Length, stringBuilder, true);
                     stringBuilder.AppendLine(binaryCount.ToString());
                 }
@@ -91,10 +80,10 @@ namespace FindMD5HashWithLeadingZeroes
                 if ((i != 8 && isPaddedWithZeroes == false) || (isPaddedWithZeroes == true))
                     stringBuilder.Append("0");
 
-                if (i % 8 == 0)
-                {
-                    stringBuilder.Append(" ");
-                }
+                //if (i % 8 == 0)
+                //{
+                //    stringBuilder.Append(" ");
+                //}
             }
 
             //Only do this the first time when adding one in the beginning
@@ -102,9 +91,9 @@ namespace FindMD5HashWithLeadingZeroes
             {
                 //Adding zero because of the one we put in the begging and we omit 1 zero
                 stringBuilder.Append("0");
-                stringBuilder.Append(" ");
+                //stringBuilder.Append(" ");
             }
-            
+
         }
 
         public StringBuilder IntegerToBase(int number, int toBase)
@@ -131,12 +120,6 @@ namespace FindMD5HashWithLeadingZeroes
             foreach (var bit in binary)
             {
                 stringBuilder.Append(bit.ToString());
-                //If it the number is longer than 1 byte
-                //if ((index % 8 == 0) && (binary.Count > 8))
-                //{
-                //    stringBuilder.Append(" ");
-                //}
-                //index++;
             }
 
             return stringBuilder;
@@ -149,7 +132,7 @@ namespace FindMD5HashWithLeadingZeroes
 
         public String ToBinary(Byte[] data)
         {
-            return string.Join(" ", data.Select(byt => Convert.ToString(byt, 2).PadLeft(8, '0')));
+            return string.Join("", data.Select(byt => Convert.ToString(byt, 2).PadLeft(8, '0')));
         }
 
         //public void ConvertToMD5Hash(string input)
