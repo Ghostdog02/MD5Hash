@@ -10,7 +10,7 @@ namespace MD5HashWithLeadingZeroes.Tests
     public class ProcessChunksTest
     {
         [Theory]
-        [InlineData("The quick brown fox jumps over the lazy dog", "9e107d9d372bb6826bd81d3542a419d6")]
+        [InlineData("ckczppom", "597bb7cda92b70698b3a70ad93920b8e")]
 
         public void ToBinary_String_ReturnTrue(string input, string expectedValue)
         {

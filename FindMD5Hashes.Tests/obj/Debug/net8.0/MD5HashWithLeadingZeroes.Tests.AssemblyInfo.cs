@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MD5HashWithLeadingZeroes.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d1a12d9a8ee43e6ac7e0001ce68d212d42ffbfbc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc2f8dde39c59f4127ddefda5a4a8acbfbecd2a9")]
 [assembly: System.Reflection.AssemblyProductAttribute("MD5HashWithLeadingZeroes.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MD5HashWithLeadingZeroes.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

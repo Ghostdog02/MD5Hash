@@ -17,7 +17,7 @@ namespace FindMD5HashWithLeadingZeroes
 
         public static void Main(string[] args)
         {
-            var input = "The quick brown fox jumps over the lazy dog";
+            var input = "They are deterministic";
             var md5Hash = new FindMD5Hash();
             var binaryString = md5Hash.ToBinary(md5Hash.ConvertToByteArray(input, Encoding.ASCII));
             var paddedInput = md5Hash.AddPadding(binaryString, input);
@@ -27,50 +27,41 @@ namespace FindMD5HashWithLeadingZeroes
 
         public string AddPadding(string binaryString, string input)
         {
-            int inputCount = input.Length;
-            int count = binaryString.Length;
-            var binaryCount = DecimalToBase(count, 2);
+            //int inputCount = input.Length;
+            int binaryCount = binaryString.Length;
+            var countInBinary = DecimalToBase(binaryCount, 2);
 
             var stringBuilder = new StringBuilder(binaryString);
 
-            if (inputCount < 448)
+            stringBuilder.Append("1");
+            var countOfZeroes = 0;
+            while (true)
             {
-                //int remainingZeroes = 448 - 1 - count;
-                ////stringBuilder.Append(" ");
-                //stringBuilder.Append("1");
+                bool isDivisible = (stringBuilder.Length + 64) % 512 == 0;
 
-
-                //AddBytesWithZeroes(remainingZeroes, stringBuilder, false);
-
-                stringBuilder.Append("1");
-                while (true)
+                if (isDivisible == true)
                 {
-                    bool isDivisible = (stringBuilder.Length + 64) % 512 == 0;
-
-                    if (isDivisible == true)
-                    {
-                        break;
-                    }
-
-                    stringBuilder.Append("0");
+                    break;
                 }
 
-                if (binaryCount.Length > 64)
-                {
-                    while (binaryCount.Length > 64)
-                    {
-                        binaryCount.Remove(0, 1);
-                    }
+                stringBuilder.Append("0");
+                countOfZeroes++;
+            }
 
-                    stringBuilder.Append(binaryCount.ToString());
+            if (countInBinary.Length > 64)
+            {
+                while (binaryCount > 64)
+                {
+                    countInBinary.Remove(0, 1);
                 }
 
-                else
-                {
-                    AddBytesWithZeroes(64 - binaryCount.Length, stringBuilder, true);
-                    stringBuilder.Append(binaryCount.ToString());
-                }
-                //var chunks = stringBuilder.GetChunks();
+                stringBuilder.Append(countInBinary.ToString());
+            }
+
+            else
+            {
+                AddBytesWithZeroes(64 - countInBinary.Length, stringBuilder, true);
+                stringBuilder.Append(countInBinary.ToString());
             }
 
             return stringBuilder.ToString();
@@ -80,24 +71,8 @@ namespace FindMD5HashWithLeadingZeroes
         {
             for (int i = 1; i <= remainingZeroes; i++)
             {
-                //The first byte when padding will contain leading 1 so it will have one less zero 
-                if ((i != 8 && isPaddedWithZeroes == false) || (isPaddedWithZeroes == true))
-                    stringBuilder.Append("0");
-
-                //if (i % 8 == 0)
-                //{
-                //    stringBuilder.Append(" ");
-                //}
-            }
-
-            //Only do this the first time when adding one in the beginning
-            if (isPaddedWithZeroes == false)
-            {
-                //Adding zero because of the one we put in the begging and we omit 1 zero
                 stringBuilder.Append("0");
-                //stringBuilder.Append(" ");
             }
-
         }
 
         public string ProcessChunks(string paddedInput)
@@ -111,23 +86,23 @@ namespace FindMD5HashWithLeadingZeroes
             InitializeS(s);
 
             //var index = 0;
-            BigInteger a0 = 0x67452301;
-            BigInteger b0 = 0xefcdab89;
-            BigInteger c0 = 0x98badcfe;
-            BigInteger d0 = 0x10325476;
+            long a0 = 0x67452301;
+            long b0 = 0xefcdab89;
+            long c0 = 0x98badcfe;
+            long d0 = 0x10325476;
 
             var chunksOf512Bits = BreakIntoChunks(paddedInput, 512);
             for (int i = 0; i < chunksOf512Bits.Count; i++)
             {
-                BigInteger a1 = a0;
-                BigInteger b1 = b0;
-                BigInteger c1 = c0;
-                BigInteger d1 = d0;
+                long a1 = a0;
+                long b1 = b0;
+                long c1 = c0;
+                long d1 = d0;
 
                 var chunksOf32Bits = BreakIntoChunks(chunksOf512Bits[i], 32);
                 for (int index = 0; index < 64; index++)
                 {
-                    BigInteger f = 0;
+                    long f = 0;
                     int order = 0;
 
                     if (index >= 0 && index <= 15)
@@ -159,7 +134,8 @@ namespace FindMD5HashWithLeadingZeroes
 
                     f = f + a1 + BinaryToDecimal(chunksOf32Bits[order]) + k[index];
                     //var rotation = f << s[index];
-                    var rotation = BigInteger.RotateLeft(f, s[index]);
+                    //var rotation = long.RotateLeft(f, s[index]);
+                    var rotation = long.RotateLeft(f, s[index]) | long.RotateRight(f, 32 - s[index]);
 
                     a1 = d1;
                     b1 = rotation + b1;
@@ -187,6 +163,7 @@ namespace FindMD5HashWithLeadingZeroes
             //result.AppendLine(c0.ToString());
             //result.AppendLine(d0.ToString());
 
+            //char[] chars = new char[16];
 
             return result.ToString();
         }
@@ -213,7 +190,7 @@ namespace FindMD5HashWithLeadingZeroes
                 }
 
                 if (i >= 0 && i <= 15)
-                {                   
+                {
                     //These 4 numbers repeat for the whole round
                     switch (indexOfNumber)
                     {
@@ -360,20 +337,26 @@ namespace FindMD5HashWithLeadingZeroes
 
             binary.Reverse();
 
+            while ((toBase == 2) && (binary.Count % 4 != 0))
+            {
+                binary.Insert(0, 0);
+            }
+
             var stringBuilder = ConvertToStringBuilder(binary);
             return stringBuilder;
         }
 
-        public BigInteger BinaryToDecimal(string binary)
+        public long BinaryToDecimal(string binary)
         {
-            BigInteger converted = 0;
+            long converted = 0;
             var reversed = binary.Reverse().ToArray();
 
             for (int i = 0; i < reversed.Count(); i++)
             {
-                var x = BigInteger.Parse(reversed[i].ToString());
-                converted += BigInteger.Multiply(BigInteger.Pow(2, i), BigInteger.Parse(reversed[i].ToString()));
-                //converted += (BigInteger)(double.Parse(reversed[i].ToString()) * Math.Pow(2, i));
+                //var x = BigInteger.Parse(reversed[i].ToString());
+                //converted += BigInteger.Multiply(BigInteger.Pow(2, i), BigInteger.Parse(reversed[i].ToString()));
+                converted += (long)(long.Parse(reversed[i].ToString()) * (long)Math.Pow(2, i));
+
             }
 
             return converted;
