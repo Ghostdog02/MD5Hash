@@ -1,18 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Hotspots>
-  <Hotspot>
-    <Assembly>FindMD5HashWithLeadingZeroes</Assembly>
-    <Class>FindMD5HashWithLeadingZeroes.FindMD5Hash</Class>
-    <MethodName>InitializeS(...)</MethodName>
-    <ShortName />
-    <Line>196</Line>
-    <FileIndex>0</FileIndex>
-    <Metrics>
-      <Metric>
-        <Name>Cyclomatic complexity</Name>
-        <Exceeded>true</Exceeded>
-        <Value>40</Value>
-      </Metric>
-    </Metrics>
-  </Hotspot>
-</Hotspots>
+<Hotspots />

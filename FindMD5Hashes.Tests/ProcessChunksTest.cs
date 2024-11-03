@@ -17,8 +17,8 @@ namespace MD5HashWithLeadingZeroes.Tests
         {
             //Arrange
             var md5Hash = new FindMD5Hash();
-            var binaryString = md5Hash.ToBinary(md5Hash.ConvertToByteArray(input, Encoding.ASCII));
-            var paddedInput = md5Hash.AddPadding(binaryString, input);
+            var data = md5Hash.ConvertToByteArray(input, Encoding.ASCII);
+            var paddedInput = md5Hash.AddPadding(data);
             
             //Act
             var actual = md5Hash.ProcessChunks(paddedInput).ToString();

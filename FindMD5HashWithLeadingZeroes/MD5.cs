@@ -10,11 +10,11 @@ namespace MD5
     /// </summary>
     public class MD5
     {
-        //public static void Main()
-        //{
-        //    var input = "They are deterministic";
-        //    Console.WriteLine(Calculate(ConvertToByteArray(input, Encoding.ASCII)));
-        //}
+        public static void Main()
+        {
+            var input = "They are deterministic";
+            Console.WriteLine(Calculate(ConvertToByteArray(input, Encoding.ASCII)));
+        }
 
         /*
          * Round shift values

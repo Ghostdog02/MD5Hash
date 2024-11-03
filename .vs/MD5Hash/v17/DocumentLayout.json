@@ -5,6 +5,17 @@
     {
       "AbsoluteMoniker": "D:0:0:{5E35073F-1511-4679-8E58-CC26CB847522}|FindMD5HashWithLeadingZeroes\\FindMD5HashWithLeadingZeroes.csproj|d:\\projects\\adventofcode\\2015\\md5hash\\findmd5hashwithleadingzeroes\\findmd5hash.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E35073F-1511-4679-8E58-CC26CB847522}|FindMD5HashWithLeadingZeroes\\FindMD5HashWithLeadingZeroes.csproj|solutionrelative:findmd5hashwithleadingzeroes\\findmd5hash.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E35073F-1511-4679-8E58-CC26CB847522}|FindMD5HashWithLeadingZeroes\\FindMD5HashWithLeadingZeroes.csproj|d:\\projects\\adventofcode\\2015\\md5hash\\findmd5hashwithleadingzeroes\\md5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E35073F-1511-4679-8E58-CC26CB847522}|FindMD5HashWithLeadingZeroes\\FindMD5HashWithLeadingZeroes.csproj|solutionrelative:findmd5hashwithleadingzeroes\\md5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|d:\\projects\\adventofcode\\2015\\md5hash\\findmd5hashes.tests\\initializeconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|solutionrelative:findmd5hashes.tests\\initializeconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Alexander\\AppData\\Local\\SourceServer\\fd9a7ae4cd0f5ed288c433999b594bb6691454ea8baae328b9995eaffc880e27\\src\\coreclr\\System.Private.CoreLib\\src\\System\\Array.CoreCLR.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +25,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,13 +45,50 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "InitializeConstants.cs",
+              "DocumentMoniker": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\InitializeConstants.cs",
+              "RelativeDocumentMoniker": "FindMD5Hashes.Tests\\InitializeConstants.cs",
+              "ToolTip": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\InitializeConstants.cs",
+              "RelativeToolTip": "FindMD5Hashes.Tests\\InitializeConstants.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwC4AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T17:47:30.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MD5.cs",
+              "DocumentMoniker": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5HashWithLeadingZeroes\\MD5.cs",
+              "RelativeDocumentMoniker": "FindMD5HashWithLeadingZeroes\\MD5.cs",
+              "ToolTip": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5HashWithLeadingZeroes\\MD5.cs",
+              "RelativeToolTip": "FindMD5HashWithLeadingZeroes\\MD5.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHIAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T17:38:12.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Array.CoreCLR.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\AppData\\Local\\SourceServer\\fd9a7ae4cd0f5ed288c433999b594bb6691454ea8baae328b9995eaffc880e27\\src\\coreclr\\System.Private.CoreLib\\src\\System\\Array.CoreCLR.cs",
+              "ToolTip": "C:\\Users\\Alexander\\AppData\\Local\\SourceServer\\fd9a7ae4cd0f5ed288c433999b594bb6691454ea8baae328b9995eaffc880e27\\src\\coreclr\\System.Private.CoreLib\\src\\System\\Array.CoreCLR.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAhwCwAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T17:24:29.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "FindMD5Hash.cs",
               "DocumentMoniker": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5HashWithLeadingZeroes\\FindMD5Hash.cs",
               "RelativeDocumentMoniker": "FindMD5HashWithLeadingZeroes\\FindMD5Hash.cs",
               "ToolTip": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5HashWithLeadingZeroes\\FindMD5Hash.cs",
               "RelativeToolTip": "FindMD5HashWithLeadingZeroes\\FindMD5Hash.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAqwGQAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAALcBAAAAAAAAAAAAAMwBAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-03T14:07:38.279Z",
               "EditorCaption": ""
