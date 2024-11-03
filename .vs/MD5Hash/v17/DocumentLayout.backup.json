@@ -5,30 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5E35073F-1511-4679-8E58-CC26CB847522}|FindMD5HashWithLeadingZeroes\\FindMD5HashWithLeadingZeroes.csproj|d:\\projects\\adventofcode\\2015\\md5hash\\findmd5hashwithleadingzeroes\\findmd5hash.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E35073F-1511-4679-8E58-CC26CB847522}|FindMD5HashWithLeadingZeroes\\FindMD5HashWithLeadingZeroes.csproj|solutionrelative:findmd5hashwithleadingzeroes\\findmd5hash.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E35073F-1511-4679-8E58-CC26CB847522}|FindMD5HashWithLeadingZeroes\\FindMD5HashWithLeadingZeroes.csproj|d:\\projects\\adventofcode\\2015\\md5hash\\findmd5hashwithleadingzeroes\\md5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5E35073F-1511-4679-8E58-CC26CB847522}|FindMD5HashWithLeadingZeroes\\FindMD5HashWithLeadingZeroes.csproj|solutionrelative:findmd5hashwithleadingzeroes\\md5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|d:\\projects\\adventofcode\\2015\\md5hash\\findmd5hashes.tests\\processchunkstest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|solutionrelative:findmd5hashes.tests\\processchunkstest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|d:\\projects\\adventofcode\\2015\\md5hash\\findmd5hashes.tests\\initializeconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|solutionrelative:findmd5hashes.tests\\initializeconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|d:\\projects\\adventofcode\\2015\\md5hash\\findmd5hashes.tests\\paddingtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|solutionrelative:findmd5hashes.tests\\paddingtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|d:\\projects\\adventofcode\\2015\\md5hash\\findmd5hashes.tests\\breakintochunkstest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|solutionrelative:findmd5hashes.tests\\breakintochunkstest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|d:\\projects\\adventofcode\\2015\\md5hash\\findmd5hashes.tests\\tobinarytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70A7965A-C904-41F7-86F3-B969BF94A851}|FindMD5Hashes.Tests\\MD5HashWithLeadingZeroes.Tests.csproj|solutionrelative:findmd5hashes.tests\\tobinarytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -53,80 +29,8 @@
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MD5.cs",
-              "DocumentMoniker": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5HashWithLeadingZeroes\\MD5.cs",
-              "RelativeDocumentMoniker": "FindMD5HashWithLeadingZeroes\\MD5.cs",
-              "ToolTip": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5HashWithLeadingZeroes\\MD5.cs",
-              "RelativeToolTip": "FindMD5HashWithLeadingZeroes\\MD5.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-03T05:48:12.515Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "InitializeConstants.cs",
-              "DocumentMoniker": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\InitializeConstants.cs",
-              "RelativeDocumentMoniker": "FindMD5Hashes.Tests\\InitializeConstants.cs",
-              "ToolTip": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\InitializeConstants.cs",
-              "RelativeToolTip": "FindMD5Hashes.Tests\\InitializeConstants.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAwwCUAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-01T14:37:00.962Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "BreakIntoChunksTest.cs",
-              "DocumentMoniker": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\BreakIntoChunksTest.cs",
-              "RelativeDocumentMoniker": "FindMD5Hashes.Tests\\BreakIntoChunksTest.cs",
-              "ToolTip": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\BreakIntoChunksTest.cs",
-              "RelativeToolTip": "FindMD5Hashes.Tests\\BreakIntoChunksTest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-01T10:19:12.508Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ToBinaryTest.cs",
-              "DocumentMoniker": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\ToBinaryTest.cs",
-              "RelativeDocumentMoniker": "FindMD5Hashes.Tests\\ToBinaryTest.cs",
-              "ToolTip": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\ToBinaryTest.cs",
-              "RelativeToolTip": "FindMD5Hashes.Tests\\ToBinaryTest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-01T10:18:54.949Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ProcessChunksTest.cs",
-              "DocumentMoniker": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\ProcessChunksTest.cs",
-              "RelativeDocumentMoniker": "FindMD5Hashes.Tests\\ProcessChunksTest.cs",
-              "ToolTip": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\ProcessChunksTest.cs",
-              "RelativeToolTip": "FindMD5Hashes.Tests\\ProcessChunksTest.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-01T09:50:01.896Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PaddingTest.cs",
-              "DocumentMoniker": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\PaddingTest.cs",
-              "RelativeDocumentMoniker": "FindMD5Hashes.Tests\\PaddingTest.cs",
-              "ToolTip": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5Hashes.Tests\\PaddingTest.cs",
-              "RelativeToolTip": "FindMD5Hashes.Tests\\PaddingTest.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAqwAgAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-31T17:19:04.61Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{320fd13f-632f-4b16-9527-a1adfe555f6c}"
             },
             {
               "$type": "Document",
@@ -136,14 +40,10 @@
               "RelativeDocumentMoniker": "FindMD5HashWithLeadingZeroes\\FindMD5Hash.cs",
               "ToolTip": "D:\\Projects\\AdventOfCode\\2015\\MD5Hash\\FindMD5HashWithLeadingZeroes\\FindMD5Hash.cs",
               "RelativeToolTip": "FindMD5HashWithLeadingZeroes\\FindMD5Hash.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAACYAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAqwGQAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-31T07:13:56.651Z",
+              "WhenOpened": "2024-11-03T14:07:38.279Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{320fd13f-632f-4b16-9527-a1adfe555f6c}"
             }
           ]
         }

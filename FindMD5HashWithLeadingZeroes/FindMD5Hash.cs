@@ -30,15 +30,26 @@ namespace FindMD5HashWithLeadingZeroes
         public byte[] AddPadding(byte[] data)
         {
             bool isDivisible;
-            int index = data.Length;
+            var lengthOfData = data.Length;
+            
+            //The target = (length - 64) that has to be reached by padding with zeroes 
+            var targetLength = 0;
 
-            while (isDivisible = ((data.Length * 8) + 64) % 512 != 0)
+            while (isDivisible = ((targetLength + lengthOfData * 8) + 64) % 512 != 0)
             {
-                stringBuilder.Append("0");
-                countOfZeroes++;
+                targetLength++;
             }
 
-            return new byte[1];
+
+            var paddedData = new byte[lengthOfData + targetLength / 8 + 8];
+            Array.Copy(data, paddedData, lengthOfData);
+            paddedData[lengthOfData] = 1;
+            var dataLengthInBits = BitConverter.GetBytes(data.Length * 8);
+            dataLengthInBits = dataLengthInBits.Reverse().ToArray();
+            var remainingZeroes = 8 - dataLengthInBits.Length;
+            Array.Copy(dataLengthInBits, 0, paddedData, paddedData.Length - remainingZeroes, remainingZeroes);
+
+            return paddedData;
         }
 
         //public string AddPadding(string binaryString, string input)
