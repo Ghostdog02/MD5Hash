@@ -11,6 +11,7 @@ namespace MD5HashWithLeadingZeroes.Tests
     {
         [Theory]
         [InlineData("ckczppom", "597bb7cda92b70698b3a70ad93920b8e")]
+        [InlineData("They are deterministic", "23db6982caef9e9152f1a5b2589e6ca3")]
 
         public void ToBinary_String_ReturnTrue(string input, string expectedValue)
         {

@@ -11,11 +11,11 @@ namespace MD5HashWithLeadingZeroes.Tests
         [InlineData(23, 0xe7d3fbc8)]
         [InlineData(25, 0xc33707d6)]
 
-        public void IntializeK_WithCorrectNumbers_ReturnTrue(int index, long expectedValue)
+        public void IntializeK_WithCorrectNumbers_ReturnTrue(int index, uint expectedValue)
         {
             //Arrange
             var md5Hash = new FindMD5Hash();
-            long[] k = new long[64];
+            uint[] k = new uint[64];
 
             //Act
             md5Hash.InitializeK(k);

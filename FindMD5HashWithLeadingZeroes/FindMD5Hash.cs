@@ -19,53 +19,69 @@ namespace FindMD5HashWithLeadingZeroes
         {
             var input = "They are deterministic";
             var md5Hash = new FindMD5Hash();
-            var binaryString = md5Hash.ToBinary(md5Hash.ConvertToByteArray(input, Encoding.ASCII));
-            var paddedInput = md5Hash.AddPadding(binaryString, input);
-            var hash = md5Hash.ProcessChunks(paddedInput);
+            //var binaryString = md5Hash.ToBinary(md5Hash.ConvertToByteArray(input, Encoding.ASCII));
+            //var paddedInput = md5Hash.AddPadding(binaryString, input);
+            //var hash = md5Hash.ProcessChunks(paddedInput);
             //Console.WriteLine(paddedInput);
+            var data = md5Hash.ConvertToByteArray(input, Encoding.ASCII);
+            var paddedData = md5Hash.AddPadding(data);
         }
 
-        public string AddPadding(string binaryString, string input)
+        public byte[] AddPadding(byte[] data)
         {
-            //int inputCount = input.Length;
-            int binaryCount = binaryString.Length;
-            var countInBinary = DecimalToBase(binaryCount, 2);
+            bool isDivisible;
+            int index = data.Length;
 
-            var stringBuilder = new StringBuilder(binaryString);
-
-            stringBuilder.Append("1");
-            var countOfZeroes = 0;
-            while (true)
+            while (isDivisible = ((data.Length * 8) + 64) % 512 != 0)
             {
-                bool isDivisible = (stringBuilder.Length + 64) % 512 == 0;
-
-                if (isDivisible == true)
-                {
-                    break;
-                }
-
                 stringBuilder.Append("0");
                 countOfZeroes++;
             }
 
-            if (countInBinary.Length > 64)
-            {
-                while (binaryCount > 64)
-                {
-                    countInBinary.Remove(0, 1);
-                }
-
-                stringBuilder.Append(countInBinary.ToString());
-            }
-
-            else
-            {
-                AddBytesWithZeroes(64 - countInBinary.Length, stringBuilder, true);
-                stringBuilder.Append(countInBinary.ToString());
-            }
-
-            return stringBuilder.ToString();
+            return new byte[1];
         }
+
+        //public string AddPadding(string binaryString, string input)
+        //{
+        //    //int inputCount = input.Length;
+        //    int binaryCount = binaryString.Length;
+        //    var countInBinary = DecimalToBase(binaryCount, 2);
+
+        //    var stringBuilder = new StringBuilder(binaryString);
+
+        //    stringBuilder.Append("1");
+        //    var countOfZeroes = 0;
+        //    while (true)
+        //    {
+        //        bool isDivisible = (stringBuilder.Length + 64) % 512 == 0;
+
+        //        if (isDivisible == true)
+        //        {
+        //            break;
+        //        }
+
+        //        stringBuilder.Append("0");
+        //        countOfZeroes++;
+        //    }
+
+        //    if (countInBinary.Length > 64)
+        //    {
+        //        while (binaryCount > 64)
+        //        {
+        //            countInBinary.Remove(0, 1);
+        //        }
+
+        //        stringBuilder.Append(countInBinary.ToString());
+        //    }
+
+        //    else
+        //    {
+        //        AddBytesWithZeroes(64 - countInBinary.Length, stringBuilder, true);
+        //        stringBuilder.Append(countInBinary.ToString());
+        //    }
+
+        //    return stringBuilder.ToString();
+        //}
 
         public void AddBytesWithZeroes(int remainingZeroes, StringBuilder stringBuilder, bool isPaddedWithZeroes)
         {
@@ -78,7 +94,7 @@ namespace FindMD5HashWithLeadingZeroes
         public string ProcessChunks(string paddedInput)
         {
             //Constants
-            var k = new long[64];
+            var k = new uint[64];
             InitializeK(k);
 
             // s specifies the per-round shift amounts
@@ -86,63 +102,71 @@ namespace FindMD5HashWithLeadingZeroes
             InitializeS(s);
 
             //var index = 0;
-            long a0 = 0x67452301;
-            long b0 = 0xefcdab89;
-            long c0 = 0x98badcfe;
-            long d0 = 0x10325476;
+            //uint a0 = 0x67425301;
+            //uint b0 = 0xEDFCBA45;
+            //uint c0 = 0x98CBADFE;
+            //uint d0 = 0x13DCE476;
+            uint a0 = 0x67452301;   // A
+            uint b0 = 0xefcdab89;   // B
+            uint c0 = 0x98badcfe;   // C
+            uint d0 = 0x10325476;   // D
 
             var chunksOf512Bits = BreakIntoChunks(paddedInput, 512);
             for (int i = 0; i < chunksOf512Bits.Count; i++)
             {
-                long a1 = a0;
-                long b1 = b0;
-                long c1 = c0;
-                long d1 = d0;
+                uint a1 = a0;
+                uint b1 = b0;
+                uint c1 = c0;
+                uint d1 = d0;
 
                 var chunksOf32Bits = BreakIntoChunks(chunksOf512Bits[i], 32);
-                for (int index = 0; index < 64; index++)
+                for (uint index = 0; index < 64; index++)
                 {
-                    long f = 0;
-                    int order = 0;
+                    uint f = 0;
+                    uint order = 0;
 
                     if (index >= 0 && index <= 15)
                     {
                         f = (b1 & c1) | ((~b1) & d1);
-                        order = i;
+                        order = index;
                     }
 
 
                     if (index >= 16 && index <= 31)
                     {
                         f = (d1 & b1) | ((~d1) & c1);
-                        order = (5 * i + 1) % 16;
+                        order = (5 * index + 1) % 16;
                     }
 
 
                     if (index >= 32 && index <= 47)
                     {
                         f = b1 ^ c1 ^ d1;
-                        order = (3 * i + 5) % 16;
+                        order = (3 * index + 5) % 16;
                     }
 
 
                     if (index >= 48 && index <= 63)
                     {
                         f = c1 ^ (b1 | (~d1));
-                        order = (7 * i) % 16;
+                        order = (7 * index) % 16;
                     }
 
-                    f = f + a1 + BinaryToDecimal(chunksOf32Bits[order]) + k[index];
+                    //uint firstStep = (uint)(f % (Math.Pow(2, 32)) + a1);
+                    //uint secondStep = BinaryToDecimal(chunksOf32Bits[order]) + firstStep;
+                    //uint thirdStep = secondStep + k[index];
+                    //f = f + a1 + BinaryToDecimal(chunksOf32Bits[order]) + k[index];
                     //var rotation = f << s[index];
                     //var rotation = long.RotateLeft(f, s[index]);
-                    var rotation = long.RotateLeft(f, s[index]) | long.RotateRight(f, 32 - s[index]);
+                    //(x << n) | (x >> (32 - n))
+                    //uint lastStep = (uint)((thirdStep << s[index]) % (Math.Pow(2, 32)));
+                    //uint lastStep = (uint)((thirdStep << s[index]) | (thirdStep >> (32 - s[index])));
 
-                    a1 = d1;
-                    b1 = rotation + b1;
+                    var tempData = d1;
+                    b1 = b1 + LeftRotate((a1 + BinaryToDecimal(chunksOf32Bits[(int)order]) + k[index]), s[index]);
                     c1 = b1;
                     d1 = c1;
-
-                    index++;
+                    a1 = tempData;
                 }
 
                 a0 += a1;
@@ -168,12 +192,17 @@ namespace FindMD5HashWithLeadingZeroes
             return result.ToString();
         }
 
-        public void InitializeK(long[] k)
+        public void InitializeK(uint[] k)
         {
             for (int i = 0; i < 64; i++)
             {
-                k[i] = (long)(Math.Pow(2, 32) * Math.Abs(Math.Sin(i + 1)));
+                k[i] = (uint)(Math.Pow(2, 32) * Math.Abs(Math.Sin(i + 1)));
             }
+        }
+
+        public static uint LeftRotate(uint x, int c)
+        {
+            return (x << c) | (x >> (32 - c));
         }
 
         // s specifies the per-round shift amounts
@@ -346,29 +375,29 @@ namespace FindMD5HashWithLeadingZeroes
             return stringBuilder;
         }
 
-        public long BinaryToDecimal(string binary)
+        public uint BinaryToDecimal(string binary)
         {
-            long converted = 0;
+            uint converted = 0;
             var reversed = binary.Reverse().ToArray();
 
             for (int i = 0; i < reversed.Count(); i++)
             {
                 //var x = BigInteger.Parse(reversed[i].ToString());
                 //converted += BigInteger.Multiply(BigInteger.Pow(2, i), BigInteger.Parse(reversed[i].ToString()));
-                converted += (long)(long.Parse(reversed[i].ToString()) * (long)Math.Pow(2, i));
+                converted += (uint.Parse(reversed[i].ToString()) * (uint)Math.Pow(2, i));
 
             }
 
             return converted;
         }
 
-        public string DecimalToHexadecimal(BigInteger numberInDecimal)
+        public string DecimalToHexadecimal(uint numberInDecimal)
         {
-            var digits = new List<long>();
+            var digits = new List<uint>();
 
             while (numberInDecimal > 0)
             {
-                long digit = (long)BigInteger.Remainder(numberInDecimal, 16);
+                uint digit = numberInDecimal % 16;
                 digits.Add(digit);
                 numberInDecimal /= 16;
             }
