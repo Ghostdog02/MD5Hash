@@ -9,13 +9,6 @@ namespace FindMD5HashWithLeadingZeroes
 {
     public class FindMD5Hash
     {
-        //static void Main(string[] args)
-        //{
-        //    string input = "ckczppom";
-        //    ConvertToMD5Hash(input);
-        //}       
-        //const string INPUT = "They are deterministic";
-
         static int[] S = new int[64] {
             7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,
             5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,
@@ -23,9 +16,6 @@ namespace FindMD5HashWithLeadingZeroes
             6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21,  6, 10, 15, 21
         };
 
-        /*
-         * Constant K Values
-         */
         static uint[] K = new uint[64] {
             0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
             0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
@@ -72,13 +62,9 @@ namespace FindMD5HashWithLeadingZeroes
                 var data = new byte[numberBytes.Length + inputBytes.Length];
                 Array.Copy(inputBytes, data, inputBytes.Length);
                 Array.Copy(numberBytes, 0, data, inputBytes.Length, numberBytes.Length);
-                //var inputWithNumber = new StringBuilder(input);
-                //inputWithNumber.Append(number);
-                //var data = ConvertToByteArray(inputWithNumber.ToString(), Encoding.ASCII);
                 var paddedData = AddPadding(data);
                 var md5HashResult = ProcessChunks(paddedData);
                 var fiveZeroes = "000000";
-                //var firstFiveCharacters = md5HashResult.ToString().Substring(0, 5);
 
                 if (md5HashResult.StartsWith(fiveZeroes))
                 {
@@ -109,7 +95,6 @@ namespace FindMD5HashWithLeadingZeroes
             Array.Copy(data, paddedData, lengthOfData);
             paddedData[lengthOfData] = 0x80;
             var dataLengthInBits = BitConverter.GetBytes(data.Length * 8);
-            //dataLengthInBits = dataLengthInBits.Reverse().ToArray();
             var remainingZeroes = 8 - dataLengthInBits.Length;
             Array.Copy(dataLengthInBits, 0, paddedData, paddedData.Length - 8, 4);
 
@@ -215,7 +200,6 @@ namespace FindMD5HashWithLeadingZeroes
                     for (int i = 0; i < numberOfChunks; i++)
                     {
                         chunks[i] = new byte[64];
-                        //Copy(Array sourceArray, int sourceIndex, Array destinationArray, int destinationIndex, int length)
                         Array.Copy(paddedData, i * 64, chunks[i], 0, paddedData.Length - i * 64);
                     }
                 }
@@ -243,116 +227,10 @@ namespace FindMD5HashWithLeadingZeroes
             }
         }
 
-        //public StringBuilder DecimalToBase(int number, int toBase)
-        //{
-        //    var binary = new List<int>();
-
-        //    while (number != 0)
-        //    {
-        //        binary.Add(number % toBase);
-        //        number = number / toBase;
-        //    }
-
-        //    binary.Reverse();
-
-        //    while ((toBase == 2) && (binary.Count % 4 != 0))
-        //    {
-        //        binary.Insert(0, 0);
-        //    }
-
-        //    var stringBuilder = ConvertToStringBuilder(binary);
-        //    return stringBuilder;
-        //}
-
-        //public uint BinaryToDecimal(string binary)
-        //{
-        //    uint converted = 0;
-        //    var reversed = binary.Reverse().ToArray();
-
-        //    for (int i = 0; i < reversed.Count(); i++)
-        //    {
-        //        //var x = BigInteger.Parse(reversed[i].ToString());
-        //        //converted += BigInteger.Multiply(BigInteger.Pow(2, i), BigInteger.Parse(reversed[i].ToString()));
-        //        converted += (uint.Parse(reversed[i].ToString()) * (uint)Math.Pow(2, i));
-
-        //    }
-
-        //    return converted;
-        //}
-
-        //public string DecimalToHexadecimal(uint numberInDecimal)
-        //{
-        //    var digits = new List<uint>();
-
-        //    while (numberInDecimal > 0)
-        //    {
-        //        uint digit = numberInDecimal % 16;
-        //        digits.Add(digit);
-        //        numberInDecimal /= 16;
-        //    }
-
-        //    digits.Reverse();
-        //    var hexadecimal = new StringBuilder();
-
-        //    foreach (var digit in digits)
-        //    {
-        //        if (digit < 10)
-        //            hexadecimal.Append(digit);
-        //        else
-        //        {
-        //            switch (digit)
-        //            {
-        //                case 10:
-        //                    hexadecimal.Append("a");
-        //                    break;
-        //                case 11:
-        //                    hexadecimal.Append("b");
-        //                    break;
-        //                case 12:
-        //                    hexadecimal.Append("c");
-        //                    break;
-        //                case 13:
-        //                    hexadecimal.Append("d");
-        //                    break;
-        //                case 14:
-        //                    hexadecimal.Append("e");
-        //                    break;
-        //                case 15:
-        //                    hexadecimal.Append("f");
-        //                    break;
-        //                default:
-        //                    break;
-        //            }
-        //        }
-
-        //    }
-
-        //    return hexadecimal.ToString();
-        //}
-
-        //public StringBuilder ConvertToStringBuilder(List<int> binary)
-        //{
-        //    var stringBuilder = new StringBuilder();
-
-        //    foreach (var bit in binary)
-        //    {
-        //        stringBuilder.Append(bit.ToString());
-        //    }
-
-        //    return stringBuilder;
-        //}
-
-
-
         public byte[] ConvertToByteArray(string str, Encoding encoding)
         {
             return encoding.GetBytes(str);
         }
-
-        //public String ToBinary(Byte[] data)
-        //{
-        //    return string.Join("", data.Select(byt => Convert.ToString(byt, 2).PadLeft(8, '0')));
-        //}
     }
 }
 

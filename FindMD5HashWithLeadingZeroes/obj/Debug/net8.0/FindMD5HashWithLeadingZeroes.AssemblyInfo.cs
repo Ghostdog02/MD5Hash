@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FindMD5HashWithLeadingZeroes")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e05c62958ee126d5a110383ef2682b2e5a35936")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+89d92e402718919ceed86a73b5ce833aea7cf7d0")]
 [assembly: System.Reflection.AssemblyProductAttribute("FindMD5HashWithLeadingZeroes")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FindMD5HashWithLeadingZeroes")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
